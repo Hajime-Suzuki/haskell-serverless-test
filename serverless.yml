@@ -1,0 +1,21 @@
+service: serverless-haskell-test
+
+provider:
+  name: aws
+  runtime: haskell
+  region: eu-central-1
+
+functions:
+  main:
+    handler: serverless-haskell-test.serverless-haskell-test-exe
+    events:
+      - http:
+          path: /
+          method: get
+custom:
+  serverless-offline:
+    port: 4000
+
+plugins:
+  - serverless-haskell
+  - serverless-offline

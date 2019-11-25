@@ -1,0 +1,21 @@
+{
+  "name": "serverless-haskell-test",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "deploy": "yarn sls deploy",
+    "dev": "yarn sls offline start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless": "^1.41.1",
+    "serverless-haskell": "0.9.4",
+    "serverless-offline": "^5.12.0"
+  }
+}
