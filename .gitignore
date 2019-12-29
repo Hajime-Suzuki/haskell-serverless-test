@@ -50,3 +50,4 @@ cabal.project.local
 cabal.project.local~
 .HTF/
 .ghc.environment.*
+haskell-serverless-test.cabal

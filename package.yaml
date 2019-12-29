@@ -25,6 +25,8 @@ dependencies:
   - http-conduit
   - bytestring
   - utf8-string
+  - text
+  - pretty-show
 
 library:
   source-dirs: src
