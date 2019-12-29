@@ -23,6 +23,8 @@ dependencies:
   - serverless-haskell
   - aeson
   - http-conduit
+  - bytestring
+  - utf8-string
 
 library:
   source-dirs: src
@@ -37,13 +39,3 @@ executables:
       - -with-rtsopts=-N
     dependencies:
       - haskell-serverless-test
-# tests:
-#   mypackage-test:
-#     main: Spec.hs
-#     source-dirs: test
-#     ghc-options:
-#       - -threaded
-#       - -rtsopts
-#       - -with-rtsopts=-N
-#     dependencies:
-#       - mypackage
