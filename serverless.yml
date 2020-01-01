@@ -1,25 +1,44 @@
 service: serverless-haskell-test
 
+resources: ${file(./resources/serverless.resources.yml)}
+
 provider:
   name: aws
   runtime: haskell
   region: eu-central-1
+  stage: dev
 
 functions:
-  main:
-    handler: serverless-haskell-test.serverless-haskell-test-exe
+  getUser:
+    name: serverless-test-get-user
+    handler: serverless-haskell-test.get-user-exe
     events:
       - http:
           path: /
           method: get
-      - http:
-          path: /
-          method: post
 
 custom:
   serverless-offline:
     port: 4000
 
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      migrate: true
+      seed: true
+      inMemory: true
+    seed:
+      dev:
+        sources:
+          - table: haskell-users
+            sources: [".seeds/users.json"]
+
+package:
+  individually: true
+
 plugins:
+  - serverless-dynamodb-local
   - serverless-haskell
   - serverless-offline

@@ -1,0 +1,14 @@
+[
+  {
+    "PK": "1",
+    "SK": "user",
+    "firstName": "test",
+    "lastName": "user"
+  },
+  {
+    "PK": "2",
+    "SK": "uesr",
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+]

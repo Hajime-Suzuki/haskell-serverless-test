@@ -51,3 +51,6 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 haskell-serverless-test.cabal
+.dynamodb
+*.js
+*-exe

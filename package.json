@@ -13,7 +13,9 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "serverless-dynamodb-local": "^0.2.38"
+  },
   "devDependencies": {
     "serverless": "^1.41.1",
     "serverless-haskell": "0.9.4",
