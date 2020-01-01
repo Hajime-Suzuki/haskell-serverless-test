@@ -8,7 +8,8 @@
   },
   "scripts": {
     "deploy": "yarn sls deploy",
-    "dev": "yarn sls offline start"
+    "dev": "yarn sls offline start",
+    "dev2": "ghcid -c='stack repl'  -T=main"
   },
   "author": "",
   "license": "ISC",

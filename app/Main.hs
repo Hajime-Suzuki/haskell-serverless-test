@@ -1,19 +1,20 @@
-{-# LANGUAGE DeriveGeneric, DeriveAnyClass, DuplicateRecordFields, OverloadedStrings #-}
 
 module Main where
 
-import           Data.Aeson
 import           User
-import           GHC.Generics
-import           Response
-import           AWSLambda
-import           Data.ByteString.Lazy.UTF8      ( toString )
+import           AWSLambda.Events.APIGateway
 import           Text.Show.Pretty               ( pPrint )
+import           Data.Text                      ( Text )
+import           Control.Lens
+import           Data.Aeson.Embedded
+import           GetUserUseCase
 
-main = lambdaMain handler
+main = apiGatewayMain handler
 
-handler :: Value -> IO Response
-handler evt = do
-  let user = getUser
-  pPrint evt
-  Response.success user
+handler
+  :: APIGatewayProxyRequest Text
+  -> IO (APIGatewayProxyResponse (Embedded GetUserUseCaseRes))
+
+handler _ = do
+  let res = getUserUseCase
+  return $ responseOK & responseBodyEmbedded ?~ res

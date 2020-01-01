@@ -12,6 +12,10 @@ functions:
       - http:
           path: /
           method: get
+      - http:
+          path: /
+          method: post
+
 custom:
   serverless-offline:
     port: 4000

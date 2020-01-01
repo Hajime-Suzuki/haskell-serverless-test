@@ -1,6 +1,4 @@
 {
-  "body": {
-    "something": "test",
-    "isHaskell": true
-  }
+  "firstName": "test",
+  "lastName": "last"
 }

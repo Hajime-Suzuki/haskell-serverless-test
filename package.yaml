@@ -27,6 +27,8 @@ dependencies:
   - utf8-string
   - text
   - pretty-show
+  - lens
+  - amazonka-core
 
 library:
   source-dirs: src

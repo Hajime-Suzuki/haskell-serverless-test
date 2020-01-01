@@ -35,3 +35,8 @@ getUser = User
                            , zipcode = "1234AB"
                            }
   }
+
+data UserInput = UserInput {
+  firstName:: String,
+  lastName:: String
+} deriving (Show , Generic, FromJSON)
