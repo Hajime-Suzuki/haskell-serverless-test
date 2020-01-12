@@ -46,13 +46,6 @@ packages:
       sha256: 55747f9b56063ea1be73a962e1ce44528b9856e119e2d9f1238397b3112b6e70
   original:
     hackage: amazonka-1.6.1@sha256:d863557379350ed6bbb91187abeb8c349a654f60b140d138710486f58ae7c476,3536
-- completed:
-    hackage: dynamodb-simple-0.6.0.2@sha256:ad0a6f2807119aa1c04b9c63f02e705b698b454606ba8af16947ec9e7f847065,2534
-    pantry-tree:
-      size: 1449
-      sha256: e669f145cc0aa67dee33b8e6a5ccbdd987b850c565281dc5fa31377c2d4dc42a
-  original:
-    hackage: dynamodb-simple-0.6.0.2@sha256:ad0a6f2807119aa1c04b9c63f02e705b698b454606ba8af16947ec9e7f847065,2534
 snapshots:
 - completed:
     size: 525662

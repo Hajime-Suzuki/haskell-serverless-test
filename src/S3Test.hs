@@ -10,12 +10,13 @@ import           Text.Show.Pretty
 
 example :: IO ListBucketsResponse
 example = do
-  let credentials = FromEnv "AWS_ACCESS_KEY_ID"
-                            "AWS_SECRET_ACCESS_KEY"
-                            Nothing
-                            (Just "Frankfurt")
-  e <- newEnv credentials
-  runResourceT . runAWS e $ send listBuckets
+  -- let credentials = FromEnv "AWS_ACCESS_KEY_ID"
+  --                           "AWS_SECRET_ACCESS_KEY"
+  --                           Nothing
+  --                           (Just "Frankfurt")
+  lgr <- newLogger Debug stdout
+  e   <- newEnv Discover
+  runResourceT . runAWS (e & envLogger .~ lgr) $ send listBuckets
 
 
 printBuckets :: IO ()
