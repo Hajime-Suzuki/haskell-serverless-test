@@ -6,7 +6,7 @@ import           User
 import           Data.Aeson
 import           GHC.Generics
 
-data GetUserUseCaseRes = GetUserUseCaseRes {user :: User} deriving (Generic, ToJSON)
+data GetUserUseCaseRes = GetUserUseCaseRes {user :: User} deriving (Generic, ToJSON, Show)
 
 getUserUseCase :: GetUserUseCaseRes
 getUserUseCase = do

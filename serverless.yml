@@ -39,6 +39,6 @@ package:
   individually: true
 
 plugins:
-  - serverless-dynamodb-local
+  # - serverless-dynamodb-local
   - serverless-haskell
   - serverless-offline

@@ -9,7 +9,7 @@
   "scripts": {
     "deploy": "yarn sls deploy",
     "dev": "yarn sls offline start",
-    "dev2": "ghcid -c='stack repl'  -T=main"
+    "dev:s3": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:s3-test-exe'  -T=main"
   },
   "author": "",
   "license": "ISC",

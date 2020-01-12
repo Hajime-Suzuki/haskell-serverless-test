@@ -15,5 +15,6 @@ handler
   -> IO (APIGatewayProxyResponse (Embedded GetUserUseCaseRes))
 
 handler _ = do
-  let res = getUserUseCase
-  return $ responseOK & responseBodyEmbedded ?~ res
+  let user    = getUserUseCase
+  return $ responseOK & responseBodyEmbedded ?~ user
+
