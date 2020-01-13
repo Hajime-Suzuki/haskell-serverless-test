@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveGeneric, DeriveAnyClass, DuplicateRecordFields, OverloadedStrings, CPP #-}
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass, DuplicateRecordFields, OverloadedStrings #-}
 
 module Main where
 
@@ -13,28 +13,18 @@ import           Control.Lens
 import           Control.Monad.Trans.AWS        ( runAWST )
 import           Data.ByteString                ( ByteString )
 import           Text.Show.Pretty               ( pPrint )
-import           ENV                            (loadSecrets)
+import           ENV                            ( loadSecrets
+                                                , getEnvironment
+                                                , EndPointType(..)
+                                                )
 
 -- https://blog.rcook.org/blog/2017/aws-via-haskell/
 
--- data Test = HashMap  {
---   id :: Int,
---   name :: String
--- }
-
-data Test = Test {
-  id :: Int,
-  name :: String
-} deriving (Show, Generic, ToJSON)
-
-
-
 scanTest :: IO (Maybe Int)
 scanTest = do
-  env <- newEnv Discover
-  let updated = env & envRegion .~ Frankfurt --TODO: avoid another var
 
-  res <- runResourceT . runAWS updated $ send (scan "haskell-dynamo-test")
+  env <- getEnvironment Local
+  res <- runResourceT . runAWS env $ send (scan "haskell-users")
 
   pPrint $ res ^. srsItems
 
@@ -44,3 +34,4 @@ main = do
   loadSecrets
   res <- scanTest
   print res
+
