@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveGeneric, DeriveAnyClass, DuplicateRecordFields, OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass, DuplicateRecordFields, OverloadedStrings, CPP #-}
 
 module Main where
 
@@ -12,71 +12,35 @@ import           Network.AWS.Endpoint           ( setEndpoint )
 import           Control.Lens
 import           Control.Monad.Trans.AWS        ( runAWST )
 import           Data.ByteString                ( ByteString )
-
-data DBInfo = DBInfo
-    { env :: Env
-    , service :: Service
-    , region :: Region
-    , tableName :: String
-    }
-
-type HostName = ByteString
-type Port = Int
-data ServiceType = AWS Region | Local HostName Port
+import           Text.Show.Pretty               ( pPrint )
+import           ENV                            (loadSecrets)
 
 -- https://blog.rcook.org/blog/2017/aws-via-haskell/
 
-getDBInfo :: ServiceType -> IO DBInfo
-getDBInfo serviceType = do
-  env <- newEnv $ FromEnv "AWS_ACCESS_KEY_ID"
-                          "AWS_SECRET_ACCESS_KEY"
-                          Nothing
-                          (Just "Frankfurt")
+-- data Test = HashMap  {
+--   id :: Int,
+--   name :: String
+-- }
 
-  let (service, region) = serviceRegion serviceType
-
-  return $ DBInfo env service region "haskell-dynamo-test"
-  where serviceRegion (AWS region) = (dynamoDB, region)
-  -- serviceRegion (Local hostName port) =
-  --   (setEndpoint False "localhost" 8000 dynamoDB, Frankfurt)
-
-scanTest :: DBInfo -> IO (Maybe Int)
-scanTest db = do
-  let e = env db
-  print $ view envRegion e
-  print $ tableName db
-  print $ region db
-
-  res <- runResourceT . runAWS e . within Frankfurt $ send
-    (scan "haskell-dynamo-test")
-
-  print res
-
-  return $ Just 1
+data Test = Test {
+  id :: Int,
+  name :: String
+} deriving (Show, Generic, ToJSON)
 
 
 
--- withDynamoDB :: (HasEnv r, MonadBaseControl IO m) =>
---     r
---     -> Service
---     -> Region
---     -> AWST' r (ResourceT m) a
---     -> m a
+scanTest :: IO (Maybe Int)
+scanTest = do
+  env <- newEnv Discover
+  let updated = env & envRegion .~ Frankfurt --TODO: avoid another var
 
--- withDynamoDB env service region action =
---   runResourceT . runAWST env . within region $ do
---     reconfigure service action
+  res <- runResourceT . runAWS updated $ send (scan "haskell-dynamo-test")
 
--- doPutItem :: DBInfo -> Int -> IO ()
--- doPutItem DBInfo{..} value = withDynamoDB env service region $ do
---     void $ send $ putItem tableName
---         & piItem .~ item
---     where item = HashMap.fromList
---             [ ("counter_name", attributeValue & avS .~ Just "my-counter")
---             , ("counter_value", attributeValue & avN .~ Just (intToText value))
---             ]
+  pPrint $ res ^. srsItems
+
+  return $ Just 1234567890
 
 main = do
-  db  <- getDBInfo $ AWS Frankfurt
-  res <- scanTest db
+  loadSecrets
+  res <- scanTest
   print res

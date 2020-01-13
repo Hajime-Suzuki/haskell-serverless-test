@@ -31,8 +31,10 @@ dependencies:
   - amazonka-core
   - amazonka-dynamodb
   - amazonka
-  # - dynamodb-simple
   - amazonka-s3
+  - dotenv
+  - filepath
+  - directory
 
 library:
   source-dirs: src

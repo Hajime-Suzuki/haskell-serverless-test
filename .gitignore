@@ -54,3 +54,4 @@ haskell-serverless-test.cabal
 .dynamodb
 *.js
 *-exe
+.env
