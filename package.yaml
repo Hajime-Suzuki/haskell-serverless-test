@@ -35,6 +35,8 @@ dependencies:
   - dotenv
   - filepath
   - directory
+  - containers
+  - unordered-containers
 
 library:
   source-dirs: src
