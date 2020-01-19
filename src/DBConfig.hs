@@ -1,6 +1,6 @@
 {-# LANGUAGE CPP ,OverloadedStrings#-}
 
-module ENV where
+module DBConfig where
 
 import           System.Directory               ( canonicalizePath )
 import           System.FilePath.Posix          

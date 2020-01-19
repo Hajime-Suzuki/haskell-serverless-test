@@ -11,7 +11,7 @@ import           Control.Lens
 import qualified Data.HashMap.Strict           as HM
 import           Control.Monad.Trans.AWS        ( runAWST )
 import           Text.Show.Pretty               ( pPrint )
-import           ENV                            ( loadSecrets
+import           DBConfig                            ( loadSecrets
                                                 , getEnvironment
                                                 , EndPointType(..)
                                                 )
@@ -23,17 +23,17 @@ import           Repositories.User
 
 scanTest :: Env -> IO [Maybe User]
 scanTest env = do
-  res <- sendReq env q
+  res <- sendReq env req
   let users = map deserializeUser $ res ^. srsItems
   return users
-  where q = scan "haskell-users"
+  where req = scan "haskell-users"
 
 getItemTest env = do
-  res <- sendReq env q
+  res <- sendReq env req
   let user = deserializeUser $ res ^. girsItem
   return user
  where
-  q    = getItem "haskell-users" & giKey .~ keys
+  req    = getItem "haskell-users" & giKey .~ keys
   keys = HM.fromList
     [ ("PK", attributeValue & avS ?~ "PK 2")
     , ("SK", attributeValue & avS ?~ "SK 2")

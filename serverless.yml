@@ -14,7 +14,7 @@ functions:
     handler: serverless-haskell-test.get-user-exe
     events:
       - http:
-          path: /
+          path: /{userId}
           method: get
 
 custom:

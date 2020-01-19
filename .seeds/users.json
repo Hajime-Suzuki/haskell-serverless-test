@@ -1,14 +1,14 @@
 [
   {
-    "PK": "PK 1",
-    "SK": "SK 1",
+    "PK": "1",
+    "SK": "user",
     "firstName": "firstName 1",
     "lastName": "lastName 1",
     "age": 20
   },
   {
-    "PK": "PK 2",
-    "SK": "SK 2",
+    "PK": "2",
+    "SK": "user",
     "firstName": "John",
     "lastName": "Doe",
     "age": 30
