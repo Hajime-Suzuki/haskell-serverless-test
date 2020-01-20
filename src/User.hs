@@ -1,16 +1,10 @@
 {-# LANGUAGE DeriveGeneric, DeriveAnyClass, DuplicateRecordFields, OverloadedStrings, TemplateHaskell #-}
 
-module Repositories.User where
+module User where
 
 import           Control.Lens
-import qualified Data.HashMap.Strict           as HM
-import           Data.Text                      ( Text(..)
-                                                , pack
-                                                )
+import           Data.Text                      ( Text(..) )
 import           Data.Aeson
-import           Data.Maybe                     ( fromJust
-                                                , isNothing
-                                                )
 import           GHC.Generics
 
 

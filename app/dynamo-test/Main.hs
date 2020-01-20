@@ -11,14 +11,14 @@ import           Control.Lens
 import qualified Data.HashMap.Strict           as HM
 import           Control.Monad.Trans.AWS        ( runAWST )
 import           Text.Show.Pretty               ( pPrint )
-import           DBConfig                            ( loadSecrets
+import           DBConfig                       ( loadSecrets
                                                 , getEnvironment
                                                 , EndPointType(..)
                                                 )
 import           Repositories.RequestHandler
 import           Debug.Trace                    ( trace )
 import           Repositories.TransformUser
-import           Repositories.User
+import           User
 
 
 scanTest :: Env -> IO [Maybe User]
@@ -33,7 +33,7 @@ getItemTest env = do
   let user = deserializeUser $ res ^. girsItem
   return user
  where
-  req    = getItem "haskell-users" & giKey .~ keys
+  req  = getItem "haskell-users" & giKey .~ keys
   keys = HM.fromList
     [ ("PK", attributeValue & avS ?~ "PK 2")
     , ("SK", attributeValue & avS ?~ "SK 2")
@@ -49,7 +49,5 @@ main = do
   pPrint user
   putStrLn "\n === users ==="
   pPrint users
-  -- return users
-  -- return user
   return "DONE"
 

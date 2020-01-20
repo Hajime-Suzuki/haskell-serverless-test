@@ -1,21 +1,17 @@
-{-# LANGUAGE DeriveGeneric, DeriveAnyClass, DuplicateRecordFields, OverloadedStrings #-}
+{-# LANGUAGE DuplicateRecordFields, OverloadedStrings #-}
 
 module Repositories.TransformUser where
 
 import           Network.AWS.DynamoDB
-import           Network.AWS.Types
-import           Network.AWS
 import           Control.Lens
-import           Repositories.User
+import           User
 import qualified Data.HashMap.Strict           as HM
-import           Data.Text                      ( Text(..)
-                                                , pack
-                                                )
-import           Data.Aeson
+import           Data.Text                      ( Text(..) )
+-- import           Data.Aeson
 import           Data.Maybe                     ( fromJust
                                                 , isNothing
                                                 )
-import           GHC.Generics
+-- import           GHC.Generics
 
 
 
@@ -37,3 +33,8 @@ createUser pk sk firstName lastName
                           , _firstName = fromJust firstName
                           , _lastName  = fromJust lastName
                           }
+
+type Keys = HM.HashMap Text AttributeValue
+genGetUserKeys :: Text -> Keys
+genGetUserKeys pk = HM.fromList
+  [("PK", attributeValue & avS ?~ pk), ("SK", attributeValue & avS ?~ "user")]

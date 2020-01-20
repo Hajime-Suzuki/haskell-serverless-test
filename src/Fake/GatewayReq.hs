@@ -29,12 +29,14 @@ ctx = ProxyRequestContext { _prcPath         = Nothing
                           , _prcAuthorizer   = Nothing
                           }
 
-gatewayReq = APIGatewayProxyRequest "test"
-                                    "asht"
-                                    "some"
-                                    [("h1", "asht")]
-                                    [("q", Just "asht")]
-                                    HM.empty
-                                    HM.empty
-                                    ctx
-                                    Nothing
+gatewayReq = APIGatewayProxyRequest
+  { _agprqResource              = "test"
+  , _agprqPath                  = "asht"
+  , _agprqHttpMethod            = "some"
+  , _agprqHeaders               = []
+  , _agprqQueryStringParameters = []
+  , _agprqPathParameters        = HM.fromList [("userId", "1")]
+  , _agprqStageVariables        = HM.empty
+  , _agprqRequestContext        = ctx
+  , _agprqBody                  = Nothing
+  }

@@ -2,7 +2,7 @@
 
 module Main where
 
-import           Repositories.User
+import           User
 import           AWSLambda.Events.APIGateway
 import           Text.Show.Pretty               ( pPrint )
 import           Data.Text                      ( Text )
@@ -11,6 +11,7 @@ import           Data.Aeson.Embedded
 import           GetUserUseCase
 import qualified Data.HashMap.Strict           as HM
 import           DBConfig
+import           Fake.GatewayReq
 
 main = apiGatewayMain handler
 
