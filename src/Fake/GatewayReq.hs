@@ -3,6 +3,12 @@
 module Fake.GatewayReq where
 import           AWSLambda.Events.APIGateway
 import qualified Data.HashMap.Strict           as HM
+import           Data.Aeson.TextValue
+import           Data.Aeson
+import           Data.Text                      ( Text )
+import           User
+import           Data.Text.Encoding
+import           Data.ByteString.Lazy           ( pack )
 
 reqId = RequestIdentity Nothing
                         Nothing
@@ -29,7 +35,20 @@ ctx = ProxyRequestContext { _prcPath         = Nothing
                           , _prcAuthorizer   = Nothing
                           }
 
-gatewayReq = APIGatewayProxyRequest
+fakeGatewayReq = APIGatewayProxyRequest
+  { _agprqResource              = "test"
+  , _agprqPath                  = "asht"
+  , _agprqHttpMethod            = "some"
+  , _agprqHeaders               = []
+  , _agprqQueryStringParameters = []
+  , _agprqPathParameters        = HM.fromList [("userId", "1")]
+  , _agprqStageVariables        = HM.empty
+  , _agprqRequestContext        = ctx
+  , _agprqBody                  = Nothing
+  }
+
+-- createFakeReq :: 
+createFakeReq = APIGatewayProxyRequest
   { _agprqResource              = "test"
   , _agprqPath                  = "asht"
   , _agprqHttpMethod            = "some"

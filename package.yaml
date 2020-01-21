@@ -51,21 +51,30 @@ executables:
       - -with-rtsopts=-N
     dependencies:
       - haskell-serverless-test
-  s3-test-exe:
+  create-user-exe:
     main: Main.hs
-    source-dirs: app/s3-test
+    source-dirs: app/create-user
     ghc-options:
       - -threaded
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
       - haskell-serverless-test
-  dynamo-test-exe:
-    main: Main.hs
-    source-dirs: app/dynamo-test
-    ghc-options:
-      - -threaded
-      - -rtsopts
-      - -with-rtsopts=-N
-    dependencies:
-      - haskell-serverless-test
+  # s3-test-exe:
+  #   main: Main.hs
+  #   source-dirs: app/s3-test
+  #   ghc-options:
+  #     - -threaded
+  #     - -rtsopts
+  #     - -with-rtsopts=-N
+  #   dependencies:
+  #     - haskell-serverless-test
+  # dynamo-test-exe:
+  #   main: Main.hs
+  #   source-dirs: app/dynamo-test
+  #   ghc-options:
+  #     - -threaded
+  #     - -rtsopts
+  #     - -with-rtsopts=-N
+  #   dependencies:
+  #     - haskell-serverless-test
