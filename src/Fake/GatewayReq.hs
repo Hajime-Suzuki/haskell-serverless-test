@@ -1,14 +1,25 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass, DuplicateRecordFields, OverloadedStrings, TemplateHaskell #-}
 
 module Fake.GatewayReq where
 import           AWSLambda.Events.APIGateway
 import qualified Data.HashMap.Strict           as HM
 import           Data.Aeson.TextValue
 import           Data.Aeson
-import           Data.Text                      ( Text )
-import           User
+import           Data.Text                      ( Text
+                                                , pack
+                                                )
+import           Domain.User
 import           Data.Text.Encoding
-import           Data.ByteString.Lazy           ( pack )
+-- import           Data.ByteString.Lazy           ( pack
+--                                                 , unpack
+--                                                 )
+import           Data.Aeson.TextValue
+import           GHC.Generics
+-- import           Data.String.Conversions
+import qualified Data.Text.Lazy.Encoding       as LE
+import           Data.Aeson.Embedded
+import           Control.Lens
+import           UseCases.CreateUser.Ports
 
 reqId = RequestIdentity Nothing
                         Nothing
@@ -47,8 +58,8 @@ fakeGatewayReq = APIGatewayProxyRequest
   , _agprqBody                  = Nothing
   }
 
--- createFakeReq :: 
-createFakeReq = APIGatewayProxyRequest
+
+createFakeReq body = APIGatewayProxyRequest
   { _agprqResource              = "test"
   , _agprqPath                  = "asht"
   , _agprqHttpMethod            = "some"
@@ -57,5 +68,5 @@ createFakeReq = APIGatewayProxyRequest
   , _agprqPathParameters        = HM.fromList [("userId", "1")]
   , _agprqStageVariables        = HM.empty
   , _agprqRequestContext        = ctx
-  , _agprqBody                  = Nothing
+  , _agprqBody                  = Just (TextValue . Embedded $ body)
   }

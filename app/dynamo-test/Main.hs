@@ -18,7 +18,7 @@ import           DBConfig                       ( loadSecrets
 import           Repositories.RequestHandler
 import           Debug.Trace                    ( trace )
 import           Repositories.TransformUser
-import           User
+import           Domain.User
 
 
 scanTest :: Env -> IO [Maybe User]

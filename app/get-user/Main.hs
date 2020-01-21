@@ -2,14 +2,14 @@
 
 module Main where
 
-import           User
+import           Domain.User
 import           AWSLambda.Events.APIGateway
 import           Text.Show.Pretty               ( pPrint )
 import           Data.Text                      ( Text )
 import           Control.Lens
 import           Data.Aeson.Embedded
 import           Data.Aeson                     ( encode )
-import           GetUserUseCase
+import           UseCases.GetUser.UseCase
 import qualified Data.HashMap.Strict           as HM
 import           DBConfig
 import           Fake.GatewayReq

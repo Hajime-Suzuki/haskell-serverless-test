@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric, DeriveAnyClass, DuplicateRecordFields, OverloadedStrings, TemplateHaskell #-}
 
-module User where
+module Domain.User where
 
 import           Control.Lens
 import           Data.Text                      ( Text(..) )
@@ -26,3 +26,12 @@ deriveJSON
   ''User
 
 makeLenses ''User
+
+-- TODO: make this better
+parseUserInput :: Maybe Text -> Maybe Text -> User
+parseUserInput Nothing _       = error "first name cannot be empty"
+parseUserInput _       Nothing = error "last name cannot be empty"
+parseUserInput (Just firstName) (Just lastName) =
+  User "1" "user" firstName lastName
+
+

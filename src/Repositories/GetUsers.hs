@@ -5,7 +5,7 @@ module Repositories.GetUsers where
 import           Repositories.RequestHandler
 import           Repositories.TransformUser
 import qualified Network.AWS.Env               as AWSEnv
-import           User
+import           Domain.User
 import           Network.AWS.DynamoDB.GetItem
 import           Network.AWS.DynamoDB
 import           Control.Lens

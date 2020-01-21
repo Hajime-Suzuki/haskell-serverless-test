@@ -2,19 +2,24 @@
 
 module Main where
 import           AWSLambda.Events.APIGateway
-import           User
+import           Domain.User
 import           Data.Aeson.Embedded
 import           Data.Text                      ( Text )
 import           Control.Lens
 import           Fake.GatewayReq
 import           DBConfig
-import           CreateUserUseCase
+import           UseCases.CreateUser.UseCase
+import qualified Data.ByteString.Lazy          as BL
+import           Text.Show.Pretty
+import           UseCases.CreateUser.Ports
 
-main = handler createFakeReq
+main = handler . createFakeReq $ CreateUserInput "Jane" "Doe"
 
 handler
-  :: APIGatewayProxyRequest Text -> IO (APIGatewayProxyResponse (Embedded Text))
+  :: APIGatewayProxyRequest (Embedded CreateUserInput)
+  -> IO (APIGatewayProxyResponse (Embedded CreateUserRes))
 handler evt = do
   env <- getEnvironment Local
-  createUserUseCase env
-  return $ responseOK & responseBodyEmbedded ?~ "Test"
+  pPrint $ evt ^. requestBodyEmbedded
+  res <- createUserUseCase env (evt ^. requestBodyEmbedded)
+  return $ responseOK & responseBodyEmbedded ?~ res

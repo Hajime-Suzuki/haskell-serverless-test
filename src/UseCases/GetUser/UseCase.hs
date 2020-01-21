@@ -1,8 +1,8 @@
 {-# LANGUAGE DeriveGeneric, DeriveAnyClass, OverloadedStrings #-}
 
-module GetUserUseCase where
+module UseCases.GetUser.UseCase where
 
-import           User
+import           Domain.User
 import           Data.Aeson
 import           GHC.Generics
 import           Control.Lens
