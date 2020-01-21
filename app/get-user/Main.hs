@@ -8,6 +8,7 @@ import           Text.Show.Pretty               ( pPrint )
 import           Data.Text                      ( Text )
 import           Control.Lens
 import           Data.Aeson.Embedded
+import           Data.Aeson                     ( encode )
 import           GetUserUseCase
 import qualified Data.HashMap.Strict           as HM
 import           DBConfig
