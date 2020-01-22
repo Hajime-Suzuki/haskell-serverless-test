@@ -8,9 +8,14 @@ import qualified Data.HashMap.Strict           as HM
 import           Network.AWS.DynamoDB.Types
 import           Data.Text                      ( Text )
 import qualified Network.AWS.Env               as AWSEnv
+import           Domain.User
+import           Repositories.TransformUser
 
-createUser :: AWSEnv.Env -> HM.HashMap Text AttributeValue -> IO ()
-createUser env item = do
+createUser :: AWSEnv.Env -> User -> IO ()
+createUser env user = do
   res <- sendReq env q
   print $ res ^. pirsResponseStatus
-  where q = putItem "haskell-users" & piItem .~ item
+ where
+  entityValues = toDbEntity user
+  q            = putItem "haskell-users" & piItem .~ entityValues
+

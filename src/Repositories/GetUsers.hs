@@ -13,5 +13,6 @@ import           Control.Lens
 getUser :: AWSEnv.Env -> Keys -> IO (Maybe User)
 getUser env keys = do
   res <- sendReq env req
-  return $ deserializeUser $ res ^. girsItem
+  let userEntity = res ^. girsItem
+  return $ Just (deserializeUser userEntity)
   where req = getItem "haskell-users" & giKey .~ keys

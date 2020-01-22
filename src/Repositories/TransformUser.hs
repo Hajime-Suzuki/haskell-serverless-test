@@ -7,34 +7,30 @@ import           Control.Lens
 import           Domain.User
 import qualified Data.HashMap.Strict           as HM
 import           Data.Text                      ( Text(..) )
--- import           Data.Aeson
 import           Data.Maybe                     ( fromJust
                                                 , isNothing
                                                 )
--- import           GHC.Generics
 
 
 
--- TODO: make this better 
-
-deserializeUser :: HM.HashMap Text AttributeValue -> Maybe User
-deserializeUser item = constructUser (item ^. ix "PK" . avS)
-                                     (item ^. ix "PK" . avS)
-                                     (item ^. ix "firstName" . avS)
-                                     (item ^. ix "lastName" . avS)
-
-
-constructUser
-  :: Maybe PK -> Maybe SK -> Maybe FirstName -> Maybe LastName -> Maybe User
-constructUser pk sk firstName lastName
-  | any isNothing [pk, sk, firstName, lastName] = Nothing
-  | otherwise = Just User { _pk        = fromJust pk
-                          , _sk        = fromJust sk
-                          , _firstName = fromJust firstName
-                          , _lastName  = fromJust lastName
-                          }
+deserializeUser :: HM.HashMap Text AttributeValue -> User
+deserializeUser item = User
+  { _pk        = fromJust $ item ^. ix "PK" . avS
+  , _sk        = fromJust $ item ^. ix "SK" . avS
+  , _firstName = fromJust $ item ^. ix "firstName" . avS
+  , _lastName  = fromJust $ item ^. ix "lastName" . avS
+  }
 
 type Keys = HM.HashMap Text AttributeValue
 genGetUserKeys :: Text -> Keys
 genGetUserKeys pk = HM.fromList
   [("PK", attributeValue & avS ?~ pk), ("SK", attributeValue & avS ?~ "user")]
+
+
+toDbEntity :: User -> HM.HashMap Text AttributeValue
+toDbEntity user = HM.fromList
+  [ ("PK"       , attributeValue & avS .~ user ^? pk)
+  , ("SK"       , attributeValue & avS .~ user ^? sk)
+  , ("firstName", attributeValue & avS .~ user ^? firstName)
+  , ("lastName" , attributeValue & avS .~ user ^? lastName)
+  ]
