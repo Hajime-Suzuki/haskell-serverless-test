@@ -24,13 +24,13 @@ import           Domain.User
 scanTest :: Env -> IO [Maybe User]
 scanTest env = do
   res <- sendReq env req
-  let users = map deserializeUser $ res ^. srsItems
+  let users = map fromDbEntity $ res ^. srsItems
   return users
   where req = scan "haskell-users"
 
 getItemTest env = do
   res <- sendReq env req
-  let user = deserializeUser $ res ^. girsItem
+  let user = fromDbEntity $ res ^. girsItem
   return user
  where
   req  = getItem "haskell-users" & giKey .~ keys

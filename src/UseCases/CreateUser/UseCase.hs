@@ -19,8 +19,7 @@ createUserUseCase env input = case input of
   Just input -> do
     let userData =
           parseUserInput (input ^? inputFirstName) (input ^? inputLastName)
-
-    UserRepo.createUser env userData
-    pure $ CreateUserRes True
+    UserRepo.saveUser env userData
+    return $ CreateUserRes True
   Nothing -> error "body is invalid"
 

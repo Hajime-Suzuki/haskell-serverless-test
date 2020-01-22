@@ -11,8 +11,8 @@ import qualified Network.AWS.Env               as AWSEnv
 import           Domain.User
 import           Repositories.TransformUser
 
-createUser :: AWSEnv.Env -> User -> IO ()
-createUser env user = do
+saveUser :: AWSEnv.Env -> User -> IO ()
+saveUser env user = do
   res <- sendReq env q
   print $ res ^. pirsResponseStatus
  where

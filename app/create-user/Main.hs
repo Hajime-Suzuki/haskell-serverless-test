@@ -13,7 +13,8 @@ import qualified Data.ByteString.Lazy          as BL
 import           Text.Show.Pretty
 import           UseCases.CreateUser.Ports
 
-main = handler . createFakeReq $ CreateUserInput "Jane" "Doe"
+main = apiGatewayMain handler
+-- main = handler . createFakeReq $ CreateUserInput "Jane" "Doe"
 
 handler
   :: APIGatewayProxyRequest (Embedded CreateUserInput)
