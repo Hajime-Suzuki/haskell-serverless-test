@@ -4,7 +4,7 @@
     "SK": "user",
     "firstName": "firstName 1",
     "lastName": "lastName 1",
-    "age": 20
+    "age": 40
   },
   {
     "PK": "2",
@@ -12,5 +12,19 @@
     "firstName": "John",
     "lastName": "Doe",
     "age": 30
+  },
+  {
+    "PK": "3",
+    "SK": "user",
+    "firstName": "Test",
+    "lastName": "One",
+    "age": 10
+  },
+  {
+    "PK": "4",
+    "SK": "user",
+    "firstName": "Another",
+    "lastName": "User",
+    "age": 20
   }
 ]

@@ -15,3 +15,9 @@ getUser env keys = do
   res <- sendReq env req
   return . fromDbEntity $ res ^. girsItem
   where req = getItem "haskell-users" & giKey .~ keys
+
+getUsers :: AWSEnv.Env -> IO [Maybe User]
+getUsers env = do
+  res <- sendReq env req
+  return $ map fromDbEntity $ res ^. srsItems
+  where req = scan "haskell-users"

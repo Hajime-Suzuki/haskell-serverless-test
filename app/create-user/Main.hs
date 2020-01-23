@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 
 module Main where
 import           AWSLambda.Events.APIGateway

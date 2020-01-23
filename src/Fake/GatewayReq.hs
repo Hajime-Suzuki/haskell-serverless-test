@@ -58,14 +58,13 @@ fakeGatewayReq = APIGatewayProxyRequest
   , _agprqBody                  = Nothing
   }
 
-
-createFakeReq body = APIGatewayProxyRequest
+createFakeReq body pathParams = APIGatewayProxyRequest
   { _agprqResource              = "test"
   , _agprqPath                  = "asht"
   , _agprqHttpMethod            = "some"
   , _agprqHeaders               = []
   , _agprqQueryStringParameters = []
-  , _agprqPathParameters        = HM.fromList [("userId", "1")]
+  , _agprqPathParameters        = HM.fromList pathParams
   , _agprqStageVariables        = HM.empty
   , _agprqRequestContext        = ctx
   , _agprqBody                  = Just (TextValue . Embedded $ body)

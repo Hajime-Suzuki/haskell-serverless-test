@@ -55,5 +55,3 @@ haskell-serverless-test.cabal
 *.js
 *-exe
 .env
-User2.*
-User3.*

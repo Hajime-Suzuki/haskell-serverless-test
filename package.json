@@ -9,11 +9,12 @@
   "scripts": {
     "deploy": "yarn sls deploy",
     "db": "yarn sls dynamodb start",
-    "dev": "yarn sls offline start",
+    "dev": "yarn sls offline start --showDuration",
     "dev:s3": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:s3-test-exe'  -T=main",
     "dev:dynamo": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:dynamo-test-exe'  -T=main",
     "dev:getUser": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:get-user-exe'  -T=main",
-    "dev:addUser": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:create-user-exe'  -T=main"
+    "dev:addUser": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:create-user-exe'  -T=main",
+    "dev:getUsers": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:get-users-exe'  -T=main"
   },
   "author": "",
   "license": "ISC",

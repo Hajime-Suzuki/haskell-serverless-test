@@ -11,10 +11,7 @@ import           UseCases.CreateUser.Ports
 import           Domain.User
 import           Text.Show.Pretty               ( pPrint )
 
-type CreateUserUseCaseRes = IO CreateUserRes
-
-
-createUserUseCase :: AWSEnv.Env -> Maybe CreateUserInput -> CreateUserUseCaseRes
+createUserUseCase :: AWSEnv.Env -> Maybe CreateUserInput -> IO CreateUserRes
 createUserUseCase env input = case input of
   Just input -> do
     let userData =
