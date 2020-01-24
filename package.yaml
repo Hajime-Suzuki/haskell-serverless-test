@@ -51,6 +51,7 @@ executables:
   #     - -with-rtsopts=-N
   #   dependencies:
   #     - haskell-serverless-test
+
   # create-user-exe:
   #   main: Main.hs
   #   source-dirs: app/create-user
@@ -60,15 +61,26 @@ executables:
   #     - -with-rtsopts=-N
   #   dependencies:
   #     - haskell-serverless-test
-  get-users-exe:
+
+  update-user-exe:
     main: Main.hs
-    source-dirs: app/get-users
+    source-dirs: app/update-user
     ghc-options:
       - -threaded
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
       - haskell-serverless-test
+      
+  # get-users-exe:
+  #   main: Main.hs
+  #   source-dirs: app/get-users
+  #   ghc-options:
+  #     - -threaded
+  #     - -rtsopts
+  #     - -with-rtsopts=-N
+  #   dependencies:
+  #     - haskell-serverless-test
   # s3-test-exe:
   #   main: Main.hs
   #   source-dirs: app/s3-test

@@ -16,6 +16,7 @@ getUser env keys = do
   return . fromDbEntity $ res ^. girsItem
   where req = getItem "haskell-users" & giKey .~ keys
 
+-- TODO: query with GSI
 getUsers :: AWSEnv.Env -> IO [Maybe User]
 getUsers env = do
   res <- sendReq env req
