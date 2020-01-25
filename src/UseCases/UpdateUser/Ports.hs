@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveGeneric, DeriveAnyClass, TemplateHaskell #-}
+{-# LANGUAGE DeriveGeneric, DeriveAnyClass, TemplateHaskell, OverloadedStrings #-}
 
 module UseCases.UpdateUser.Ports where
 
@@ -10,9 +10,12 @@ import           Data.Text                      ( Text )
 import           Domain.User
 
 
-data UpdateUserInput = UpdateUserInput {_inputFirstName:: Maybe Text, _inputLastName::Maybe Text} deriving(Show)
+data UpdateUserInput = UpdateUserInput {_inputFirstName:: Maybe Text, _inputLastName::Maybe Text} deriving(Show, Generic, FromJSON)
 
 makeLenses ''UpdateUserInput
 
 
-newtype UpdateUsersUseCaseRes = UpdateUsersUseCaseRes {user :: String} deriving(ToJSON, Generic, Show)
+data UpdateUserUseCaseRes = UpdateUserUseCaseRes {user :: Text} deriving(ToJSON, Generic, Show)
+
+
+data Res a = ErrorRes {error::String} | Res a deriving(ToJSON, Generic, Show)

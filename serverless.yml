@@ -16,6 +16,13 @@ functions:
       - http:
           path: /{userId}
           method: get
+  updateUser:
+    name: serverless-test-update-user
+    handler: serverless-haskell-test.update-user-exe
+    events:
+      - http:
+          path: /{userId}
+          method: put
 
 custom:
   serverless-offline:

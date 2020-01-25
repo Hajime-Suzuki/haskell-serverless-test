@@ -8,6 +8,7 @@ import           GHC.Generics
 import           Control.Lens
 import qualified Data.HashMap.Strict           as HM
 import           Data.Text                      ( Text )
+import           Data.Maybe                     ( isNothing )
 import           Repositories.TransformUser
 import           Repositories.UpdateUser       as UserRepo
 import           UseCases.UpdateUser.Ports
@@ -17,14 +18,14 @@ import           Text.Show.Pretty               ( pPrint )
 updateUsersUseCase
   :: AWSEnv.Env
   -> Maybe UpdateUserInput
-  -> HM.HashMap Text Text
-  -> IO UpdateUsersUseCaseRes
+  -> Maybe Text
+  -> IO (Either String UpdateUserUseCaseRes)
+-- TODO: user updateUserCase Port
+-- TODO: use monad
+updateUsersUseCase _ Nothing _ = return $ Left "input can not be empty"
+updateUsersUseCase _ _ Nothing = return $ Left "user id can not be empty"
+updateUsersUseCase env (Just input) (Just userId) = do
+  UserRepo.updateUser env userId input
+  return . Right $ UpdateUserUseCaseRes "updated"
 
-updateUsersUseCase env input pathParams = case input of
-  Nothing      -> error "input can not be empty"
-  (Just input) -> case userId of
-    Nothing       -> error "user id can not be empty"
-    (Just userId) -> do
-      UserRepo.updateUser env userId input
-      return $ UpdateUsersUseCaseRes "updated"
-  where userId = pathParams ^. at "userId"
+
