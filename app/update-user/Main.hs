@@ -15,14 +15,17 @@ import qualified Data.HashMap.Strict           as HM
 import           DBConfig
 import           Fake.GatewayReq
 
-main = handler fakeGatewayReq
+main = handler
+  $ createFakeReq (UpdateUserInput (Just "aaaa") Nothing) [("userId", "1")]
 
 handler
-  :: APIGatewayProxyRequest Text
+  :: APIGatewayProxyRequest (Embedded UpdateUserInput)
   -> IO (APIGatewayProxyResponse (Embedded UpdateUsersUseCaseRes))
 
 handler evt = do
   env <- getEnvironment Local
   res <- updateUsersUseCase env
+                            (evt ^. requestBodyEmbedded)
+                            (evt ^. agprqPathParameters)
   return $ responseOK & responseBodyEmbedded ?~ res
 
