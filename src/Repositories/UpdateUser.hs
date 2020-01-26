@@ -9,22 +9,23 @@ import           Domain.User
 import           UseCases.UpdateUser.Ports
 import           Network.AWS.DynamoDB.GetItem
 import           Network.AWS.DynamoDB
+import           Network.AWS.DynamoDB.Types
 import           Control.Lens
+import           Text.Pretty.Simple             ( pPrint )
 import qualified Data.HashMap.Strict           as HM
 import           Data.Maybe                     ( catMaybes
                                                 , isJust
                                                 )
-import           Text.Show.Pretty
 import           Data.Text                      ( Text
                                                 , pack
                                                 )
 import           Data.List                      ( intercalate )
 
--- TODO: skip update if input is empty
 updateUser :: AWSEnv.Env -> PK -> UpdateUserInput -> IO ()
 updateUser env pk input = do
   res <- sendReq env req
-  print $ res ^. uirsResponseStatus
+  pPrint "=== updated! ==="
+  pPrint $ res ^. uirsAttributes
  where
   req =
     updateItem "haskell-users"
@@ -34,9 +35,12 @@ updateUser env pk input = do
       ?~ updateExpression
       &  uiExpressionAttributeValues
       .~ values
+      &  uiReturnValues
+      ?~ UpdatedNew
   updateExpression = pack (getUpdateUserExpression input)
   values           = getUpdateUserExpressionValues input
 
+-- TODO: find better way
 getUpdateUserExpression :: UpdateUserInput -> String
 getUpdateUserExpression input = "SET "
   ++ intercalate ", " (filter (not . null) [fn, ln])
@@ -49,7 +53,6 @@ getUpdateUserExpression input = "SET "
     else ""
 
 
--- make update condition dynamic
 getUpdateUserExpressionValues
   :: UpdateUserInput -> HM.HashMap Text AttributeValue
 getUpdateUserExpressionValues = filterMap . getValues

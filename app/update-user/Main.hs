@@ -14,18 +14,18 @@ import           UseCases.UpdateUser.Ports
 import qualified Data.HashMap.Strict           as HM
 import           DBConfig
 import           Fake.GatewayReq
+import           Utils.APIGateway
 
--- main = apiGatewayMain handler
+main = apiGatewayMain handler
 
-main =
-  handler
-  -- $ createFakeReq (UpdateUserInput (Just "aaaa") Nothing) [("userId", "1234")]
-          $ createFakeReq (UpdateUserInput (Just "aaaa") Nothing) []
+-- main = handler
+--   $ createFakeReq (UpdateUserInput (Just "aaaa") Nothing) [("userId", "1234")]
+
 
 
 handler
   :: APIGatewayProxyRequest (Embedded UpdateUserInput)
-  -> IO (APIGatewayProxyResponse (Embedded (Res UpdateUserUseCaseRes)))
+  -> IO (APIGatewayProxyResponse (Embedded (Response UpdateUserUseCaseRes)))
 
 handler evt = do
   env <- getEnvironment Local
@@ -34,5 +34,6 @@ handler evt = do
                             (evt ^. agprqPathParameters . at "userId")
   case res of
     (Left  e  ) -> return $ responseOK & responseBodyEmbedded ?~ ErrorRes e
-    (Right res) -> return $ responseOK & responseBodyEmbedded ?~ Res res
+    (Right res) -> return $ responseOK & responseBodyEmbedded ?~ Success res
+
 

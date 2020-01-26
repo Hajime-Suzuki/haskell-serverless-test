@@ -37,6 +37,7 @@ dependencies:
   - directory
   - containers
   - unordered-containers
+  - pretty-simple
 
 library:
   source-dirs: src
@@ -71,7 +72,6 @@ executables:
       - -with-rtsopts=-N
     dependencies:
       - haskell-serverless-test
-      
   # get-users-exe:
   #   main: Main.hs
   #   source-dirs: app/get-users

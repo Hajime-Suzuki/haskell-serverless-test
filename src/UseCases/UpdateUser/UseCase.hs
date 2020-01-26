@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveGeneric, DeriveAnyClass, OverloadedStrings #-}
+{-# LANGUAGE  OverloadedStrings #-}
 
 module UseCases.UpdateUser.UseCase where
 
@@ -13,17 +13,16 @@ import           Repositories.TransformUser
 import           Repositories.UpdateUser       as UserRepo
 import           UseCases.UpdateUser.Ports
 import qualified Network.AWS.Env               as AWSEnv
-import           Text.Show.Pretty               ( pPrint )
 
 updateUsersUseCase
   :: AWSEnv.Env
   -> Maybe UpdateUserInput
   -> Maybe Text
   -> IO (Either String UpdateUserUseCaseRes)
--- TODO: user updateUserCase Port
--- TODO: use monad
+
 updateUsersUseCase _ Nothing _ = return $ Left "input can not be empty"
 updateUsersUseCase _ _ Nothing = return $ Left "user id can not be empty"
+
 updateUsersUseCase env (Just input) (Just userId) = do
   UserRepo.updateUser env userId input
   return . Right $ UpdateUserUseCaseRes "updated"
