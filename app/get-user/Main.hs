@@ -22,7 +22,7 @@ handler
 
 handler evt = do
   let keys = evt ^. agprqPathParameters
-  env  <- getEnvironment Local
+  env  <- getEnvironment
   user <- getUserUseCase env keys
   case user of
     Nothing -> return responseNotFound

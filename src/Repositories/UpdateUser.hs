@@ -24,7 +24,6 @@ import           Data.List                      ( intercalate )
 updateUser :: AWSEnv.Env -> PK -> UpdateUserInput -> IO ()
 updateUser env pk input = do
   res <- sendReq env req
-  pPrint "=== updated! ==="
   pPrint $ res ^. uirsAttributes
  where
   req =

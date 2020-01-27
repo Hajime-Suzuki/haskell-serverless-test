@@ -7,6 +7,15 @@ provider:
   runtime: haskell
   region: eu-central-1
   stage: dev
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "dynamodb:Query"
+        - "dynamodb:GetItem"
+        - "dynamodb:PutItem"
+        - "dynamodb:UpdateItem"
+        - "dynamodb:DeleteItem"
+      Resource: "arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:*"
 
 functions:
   getUser:
@@ -49,3 +58,4 @@ plugins:
   - serverless-dynamodb-local
   - serverless-haskell
   - serverless-offline
+  - serverless-pseudo-parameters

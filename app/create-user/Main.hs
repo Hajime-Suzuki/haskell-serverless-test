@@ -19,6 +19,6 @@ handler
   :: APIGatewayProxyRequest (Embedded CreateUserInput)
   -> IO (APIGatewayProxyResponse (Embedded CreateUserRes))
 handler evt = do
-  env <- getEnvironment Local
+  env <- getEnvironment
   res <- createUserUseCase env (evt ^. requestBodyEmbedded)
   return $ responseOK & responseBodyEmbedded ?~ res

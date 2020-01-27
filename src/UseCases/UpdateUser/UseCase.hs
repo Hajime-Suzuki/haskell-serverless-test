@@ -14,6 +14,7 @@ import           Repositories.UpdateUser       as UserRepo
 import           UseCases.UpdateUser.Ports
 import qualified Network.AWS.Env               as AWSEnv
 
+
 updateUsersUseCase
   :: AWSEnv.Env
   -> Maybe UpdateUserInput

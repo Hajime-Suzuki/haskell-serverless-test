@@ -42,7 +42,7 @@ getItemTest env = do
 
 main = do
   loadSecrets
-  env   <- getEnvironment Local
+  env   <- getEnvironment
   users <- scanTest env
   user  <- getItemTest env
   putStrLn "\n === user ==="

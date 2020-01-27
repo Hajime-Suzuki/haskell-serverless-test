@@ -43,15 +43,15 @@ library:
   source-dirs: src
 
 executables:
-  # get-user-exe:
-  #   main: Main.hs
-  #   source-dirs: app/get-user
-  #   ghc-options:
-  #     - -threaded
-  #     - -rtsopts
-  #     - -with-rtsopts=-N
-  #   dependencies:
-  #     - haskell-serverless-test
+  get-user-exe:
+    main: Main.hs
+    source-dirs: app/get-user
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - haskell-serverless-test
 
   # create-user-exe:
   #   main: Main.hs

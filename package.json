@@ -10,12 +10,12 @@
     "deploy": "yarn sls deploy",
     "db": "yarn sls dynamodb start",
     "dev": "yarn sls offline start --showDuration",
-    "dev:s3": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:s3-test-exe'  -T=main",
-    "dev:dynamo": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:dynamo-test-exe'  -T=main",
-    "dev:getUser": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:get-user-exe'  -T=main",
-    "dev:addUser": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:create-user-exe'  -T=main",
-    "dev:getUsers": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:get-users-exe'  -T=main",
-    "dev:updateUser": "ghcid -c='stack repl --main-is haskell-serverless-test:exe:update-user-exe'  -T=main"
+    "dev:s3": "IS_OFFLINE=True ghcid -c='stack repl --main-is haskell-serverless-test:exe:s3-test-exe'  -T=main",
+    "dev:dynamo": "IS_OFFLINE=True ghcid -c='stack repl --main-is haskell-serverless-test:exe:dynamo-test-exe'  -T=main",
+    "dev:getUser": "IS_OFFLINE=True ghcid -c='stack repl --main-is haskell-serverless-test:exe:get-user-exe'  -T=main",
+    "dev:addUser": "IS_OFFLINE=True ghcid -c='stack repl --main-is haskell-serverless-test:exe:create-user-exe'  -T=main",
+    "dev:getUsers": "IS_OFFLINE=True ghcid -c='stack repl --main-is haskell-serverless-test:exe:get-users-exe'  -T=main",
+    "dev:updateUser": "IS_OFFLINE=True ghcid -c='stack repl --main-is haskell-serverless-test:exe:update-user-exe'  -T=main"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +25,7 @@
   "devDependencies": {
     "serverless": "^1.41.1",
     "serverless-haskell": "0.9.4",
-    "serverless-offline": "^5.12.0"
+    "serverless-offline": "^5.12.0",
+    "serverless-pseudo-parameters": "^2.5.0"
   }
 }

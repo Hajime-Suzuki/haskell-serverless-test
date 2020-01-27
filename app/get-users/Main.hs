@@ -22,7 +22,7 @@ handler
   -> IO (APIGatewayProxyResponse (Embedded GetUsersUseCaseRes))
 
 handler evt = do
-  env   <- getEnvironment Local
+  env <- getEnvironment
   res <- getUsersUseCase env
   return $ responseOK & responseBodyEmbedded ?~ res
 
