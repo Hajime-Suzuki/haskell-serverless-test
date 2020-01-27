@@ -22,7 +22,7 @@ getEnvironment :: IO Env
 getEnvironment = do
   isOffline <-  lookupEnv "IS_OFFLINE"
   case isOffline of 
-    Nothing -> do
-        let dynamo = setEndpoint False "localhost" 8000 dynamoDB
-        newEnv Discover <&> configure dynamo <&> envRegion .~ Frankfurt
-    (Just _) ->   newEnv Discover <&> envRegion .~ Frankfurt
+    Nothing -> newEnv Discover <&> envRegion .~ Frankfurt
+    (Just _) -> do
+      let dynamo = setEndpoint False "localhost" 8000 dynamoDB
+      newEnv Discover <&> configure dynamo <&> envRegion .~ Frankfurt
