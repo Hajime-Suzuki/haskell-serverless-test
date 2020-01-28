@@ -15,4 +15,12 @@ Resources:
         - AttributeName: SK
           KeyType: RANGE
 
+      GlobalSecondaryIndexes:
+        - IndexName: all_users
+          KeySchema:
+            - AttributeName: SK
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+
       BillingMode: PAY_PER_REQUEST

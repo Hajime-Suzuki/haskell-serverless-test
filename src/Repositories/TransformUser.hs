@@ -16,6 +16,12 @@ genGetUserKeys :: Text -> Keys
 genGetUserKeys pk = HM.fromList
   [("PK", attributeValue & avS ?~ pk), ("SK", attributeValue & avS ?~ "user")]
 
+genQueryUsersKeys = "PK=:pk AND SK=:sk" :: Text
+genQueryUsersValues :: PK -> HM.HashMap Text AttributeValue
+genQueryUsersValues userId = HM.fromList
+  [ (":pk", attributeValue & avS ?~ userId)
+  , (":sk", attributeValue & avS ?~ "user")
+  ]
 
 fromDbEntity :: HM.HashMap Text AttributeValue -> Maybe User
 fromDbEntity item = if null item

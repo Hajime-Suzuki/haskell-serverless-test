@@ -17,5 +17,4 @@ getUsersUseCase :: AWSEnv.Env -> IO GetUsersUseCaseRes
 
 getUsersUseCase env = do
   users <- getUsers env
-  print users
   return $ GetUsersUseCaseRes users
