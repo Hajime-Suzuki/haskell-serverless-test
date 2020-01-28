@@ -25,8 +25,8 @@ scanTable env = do
   return $ map fromDbEntity $ res ^. srsItems
   where req = scan "haskell-users"
 
-getUsers :: AWSEnv.Env -> IO [Maybe User]
-getUsers env = do
+getUsers :: AWSEnv.Env -> PK -> IO [Maybe User]
+getUsers env pk = do
   res <- sendReq env req
   return $ map fromDbEntity $ res ^. qrsItems
  where
@@ -37,4 +37,4 @@ getUsers env = do
       &  qExpressionAttributeValues
       .~ values
   keys   = genQueryUsersKeys
-  values = genQueryUsersValues "1"
+  values = genQueryUsersValues pk

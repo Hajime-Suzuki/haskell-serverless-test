@@ -13,8 +13,11 @@ import           Repositories.GetUsers
 import           UseCases.GetUsers.Ports
 import qualified Network.AWS.Env               as AWSEnv
 
-getUsersUseCase :: AWSEnv.Env -> IO GetUsersUseCaseRes
+type UserId = Text
+getUsersUseCase
+  :: AWSEnv.Env -> Maybe UserId -> IO (Either String GetUsersUseCaseRes)
 
-getUsersUseCase env = do
-  users <- getUsers env
-  return $ GetUsersUseCaseRes users
+getUsersUseCase _   Nothing       = return $ Left "user id can not be empty"
+getUsersUseCase env (Just userId) = do
+  users <- getUsers env userId
+  return $ Right (GetUsersUseCaseRes users)

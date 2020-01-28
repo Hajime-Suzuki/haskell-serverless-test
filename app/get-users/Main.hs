@@ -14,15 +14,20 @@ import           UseCases.GetUsers.Ports
 import qualified Data.HashMap.Strict           as HM
 import           DBConfig
 import           Fake.GatewayReq
+import           Utils.APIGateway
 
-main = handler fakeGatewayReq
+main = apiGatewayMain handler
+-- main = handler fakeGatewayReq
 
 handler
   :: APIGatewayProxyRequest Text
-  -> IO (APIGatewayProxyResponse (Embedded GetUsersUseCaseRes))
+  -> IO (APIGatewayProxyResponse (Embedded (Response GetUsersUseCaseRes)))
 
 handler evt = do
   env <- getEnvironment
-  res <- getUsersUseCase env
-  return $ responseOK & responseBodyEmbedded ?~ res
+  let userId = evt ^. agprqPathParameters . at "userId"
+  res <- getUsersUseCase env userId
+  case res of
+    (Left  e   ) -> return $ response 500 & responseBodyEmbedded ?~ ErrorRes e
+    (Right user) -> return $ responseOK & responseBodyEmbedded ?~ Success user
 
