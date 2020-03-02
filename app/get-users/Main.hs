@@ -27,6 +27,7 @@ handler evt = do
   env <- getEnvironment
   let userId = evt ^. agprqPathParameters . at "userId"
   res <- getUsersUseCase env userId
+  
   case res of
     (Left  e   ) -> return $ response 500 & responseBodyEmbedded ?~ ErrorRes e
     (Right user) -> return $ responseOK & responseBodyEmbedded ?~ Success user
